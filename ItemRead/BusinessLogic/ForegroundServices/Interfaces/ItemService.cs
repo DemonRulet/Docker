@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kafka.Enums
+namespace BusinessLogic.ForegroundServices.Interfaces
 {
-    public enum StatusCode
+    public class ItemService
     {
-        Error = 0,
-        Success = 1,
+        
     }
 }

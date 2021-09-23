@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kafka.Configuration
+namespace BusinessLogic.ForegroundServices.Services
 {
-    public class TopicConfig
+    public interface IItemService
     {
-        public string Name { set; get; }
+        
     }
 }

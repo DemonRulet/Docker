@@ -12,19 +12,13 @@ namespace BusinessLogic.Services
     public class KafkaService<T> : IKafkaService<T>
     {
         private readonly ILogger<KafkaService<T>> _logger;
-        private readonly ProducerConfig _producerConfig;
-        private readonly TopicConfig _topicConfig;
-        private readonly MessageConfig _messageConfig;
 
         public KafkaService(IConfiguration configuration, ILogger<KafkaService<T>> logger)
         {
-            ReadConfiguration(out _producerConfig, configuration);
-            ReadConfiguration(out _messageConfig, configuration);
-            ReadConfiguration(out _topicConfig, configuration);
             _logger = logger;
         }
 
-        public async Task<StatusCode> Push(T item)
+        public async Task<int> Push(T item)
         {
             using (var producer = new ProducerBuilder<string, T>
                 (_producerConfig).Build())
@@ -35,7 +29,7 @@ namespace BusinessLogic.Services
                        (_topicConfig.Name, new Message<string, T>
                        {
                            Key = _messageConfig.Key,
-                           Value = item
+                           Value = item,
                        });
 
                     return StatusCode.Success;

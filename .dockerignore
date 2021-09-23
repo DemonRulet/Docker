@@ -1,0 +1,17 @@
+ItemWrite/ItemWrite/obj
+ItemWrite/ItemWrite/bin
+ItemWrite/BusinessLogic/obj
+ItemWrite/BusinessLogic/bin
+ItemWrite/Kafka/Kafka/bin
+ItemWrite/Kafka/Kafka/obj
+
+ItemRead/ItemRead/bin
+ItemRead/ItemRead/obj
+ItemRead/BusinessLogic/obj
+ItemRead/BusinessLogic/bin
+ItemRead/DataAccess/bin
+ItemRead/DataAccess/obj
+
+*.vs
+*.Dockerfile
+*.git

@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ItemWrite", "ItemWrite\Item
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{A8885C9A-FB4C-40D3-B4B4-21C855ADB26C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kafka", "Kafka\Kafka\Kafka.csproj", "{7F7F4C17-FF1B-44B2-9575-4F24E6BA9A4A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{A8885C9A-FB4C-40D3-B4B4-21C855ADB26C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8885C9A-FB4C-40D3-B4B4-21C855ADB26C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8885C9A-FB4C-40D3-B4B4-21C855ADB26C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7F7F4C17-FF1B-44B2-9575-4F24E6BA9A4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7F7F4C17-FF1B-44B2-9575-4F24E6BA9A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7F7F4C17-FF1B-44B2-9575-4F24E6BA9A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7F7F4C17-FF1B-44B2-9575-4F24E6BA9A4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
