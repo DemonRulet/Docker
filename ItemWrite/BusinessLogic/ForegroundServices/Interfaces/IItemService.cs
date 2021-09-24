@@ -6,6 +6,5 @@ namespace BusinessLogic.ForegroundServices.Interfaces
     {
         Task<int> GetCount();
         Task<int> UpdateCount(TItem item);
-        Task<int> Add(TItem item);
     }
 }

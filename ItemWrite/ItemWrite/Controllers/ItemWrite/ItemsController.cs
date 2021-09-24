@@ -11,16 +11,18 @@ namespace ItemWrite.Controllers.ItemWrite
     public class ItemsController : ControllerBase
     {
         private readonly IItemService<string> _itemService;
+        private readonly IItemProducerService _itemProducer;
 
-        public ItemsController(IItemService<string> itemService)
+        public ItemsController(IItemService<string> itemService, IItemProducerService itemProducer)
         {
             _itemService = itemService;
+            _itemProducer = itemProducer;
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] string item)
         {
-             int status = await _itemService.Add(item);
+            int status = await _itemProducer.SendToKafka(item);
              return Ok(status == 1 ? "Success" : "Error");
         }
 

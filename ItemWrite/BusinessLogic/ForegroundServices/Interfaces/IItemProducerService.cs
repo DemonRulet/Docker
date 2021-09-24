@@ -2,8 +2,8 @@
 
 namespace BusinessLogic.ForegroundServices.Interfaces
 {
-    public interface IItemServiceKafka
+    public interface IItemProducerService
     {
-        Task<int> Push<TItem>(TItem item);
+        Task<int> SendToKafka<TItem>(TItem item);
     }
 }

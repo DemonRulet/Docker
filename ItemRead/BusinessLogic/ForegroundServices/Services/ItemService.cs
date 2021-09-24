@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.ForegroundServices.Services
 {
-    public class ItemService<TItem> : IItemService<TItem>, IItemServiceKafka
+    public class ItemService<TItem> : IItemService<TItem>
     {
         private readonly IConfiguration _configuration;
         private readonly ILogger<ItemService<TItem>> _logger;
@@ -27,35 +27,6 @@ namespace BusinessLogic.ForegroundServices.Services
         public Task<int> Add(TItem item)
         {
             return _itemRepository.Add(item);
-        }
-
-        public Task<int> Get(TItem item)
-        {
-            return Push(item);
-        }
-
-        public async Task<int> Push<T>(T item)
-        {
-            using (var producer = new ProducerBuilder<Null, T>
-                 (new ProducerConfig() { BootstrapServers = _configuration["KafkaServer:BootstrapServers"]}).Build())
-            {
-                try
-                {
-                    var x = await producer.ProduceAsync
-                       (new TopicPartition(_configuration["ItemsProducer:Topic"],
-                       Convert.ToUInt16(_configuration["ItemsProducer:TopicPartition"])), new Message<Null, T>
-                       {
-                           Value = item,
-                       });
-                    
-                    return 1;
-                }
-                catch (Exception exception)
-                {
-                    _logger.LogError(exception.Message);
-                }
-            }
-            return 0;
         }
     }
 }

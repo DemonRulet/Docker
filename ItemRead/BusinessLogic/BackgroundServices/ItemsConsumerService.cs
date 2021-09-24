@@ -14,15 +14,18 @@ namespace BusinessLogic.BackgroundServices
         private readonly IConfiguration _configuration;
         private readonly IItemService<string> _itemService;
         private readonly ILogger<ItemsConsumerService> _logger;
+        private readonly IItemProducerService _itemProducerService;
 
         public ItemsConsumerService(
             IConfiguration configuration,
             IItemService<string> itemService,
-            ILogger<ItemsConsumerService> logger)
+            ILogger<ItemsConsumerService> logger,
+            IItemProducerService itemProducerService)
         {
             _configuration = configuration;
             _logger = logger;
             _itemService = itemService;
+            _itemProducerService = itemProducerService;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -46,7 +49,7 @@ namespace BusinessLogic.BackgroundServices
                     {
                         var consumer = builder.Consume(cancelToken.Token);
                         await _itemService.Add(consumer.Message.Value);
-                        await _itemService.Get(consumer.Message.Value);
+                        await _itemProducerService.SendToKafka(consumer.Message.Value);
                         _logger.LogInformation("Message: {0} partition {1} received from {2}",
                            consumer.Message.Value, consumer.Partition.Value, consumer.TopicPartitionOffset);
                     }
