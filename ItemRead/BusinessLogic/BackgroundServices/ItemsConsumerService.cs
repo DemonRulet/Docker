@@ -37,17 +37,18 @@ namespace BusinessLogic.BackgroundServices
             using (var builder = new ConsumerBuilder<Ignore,
                 string>(conf).Build())
             {
-                builder.Assign(new TopicPartition(_configuration["ItemsConsumer:Topic"], new Partition(1)));
+                builder.Assign(new TopicPartition(_configuration["ItemsConsumer:Topic"],
+                    Convert.ToUInt16(_configuration["ItemsConsumer:TopicPartition"])));
                 var cancelToken = new CancellationTokenSource();
                 try
                 {
                     while (true)
                     {
                         var consumer = builder.Consume(cancelToken.Token);
-                        //await _itemService.Add(consumer.Message.Value);
-                        //await _itemService.Get(consumer.Message.Value);
+                        await _itemService.Add(consumer.Message.Value);
+                        await _itemService.Get(consumer.Message.Value);
                         _logger.LogInformation("Message: {0} partition {1} received from {2}",
-                            consumer.Message.Value, consumer.Partition.Value, consumer.TopicPartitionOffset);
+                           consumer.Message.Value, consumer.Partition.Value, consumer.TopicPartitionOffset);
                     }
                 }
                 catch (Exception exception)

@@ -23,5 +23,11 @@ namespace ItemWrite.Controllers.ItemWrite
              int status = await _itemService.Add(item);
              return Ok(status == 1 ? "Success" : "Error");
         }
+
+        [HttpGet("count")]
+        public async Task<IActionResult> GetCount()
+        {
+            return Ok(await _itemService.GetCount());
+        }
     }
 }

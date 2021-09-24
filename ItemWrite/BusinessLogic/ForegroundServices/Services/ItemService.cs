@@ -24,29 +24,28 @@ namespace BusinessLogic.ForegroundServices.Services
             _itemRepository = itemRepository;
         }
 
-
         public Task<int> Add(TItem item)
         {
             return Push(item);
         }
 
-        public Task<int> GetCount(TItem item)
+        public Task<int> GetCount()
         {
-            throw new NotImplementedException();
+            return _itemRepository.Count();
         }
 
         public async Task<int> Push<T>(T item)
         {
-            using (var producer = new ProducerBuilder<string, T>
+            using (var producer = new ProducerBuilder<Null, T>
                  (new ProducerConfig() { BootstrapServers = _configuration["KafkaServer:BootstrapServers"] }).Build())
             {
                 try
                 {
                     var x = await producer.ProduceAsync
-                       ("items", new Message<string, T>
+                       (new TopicPartition(_configuration["ItemsProducer:Topic"], 
+                       Convert.ToUInt16(_configuration["ItemsProducer:TopicPartition"])), new Message<Null, T>
                        {
                            Value = item,
-                           Key = "item_write"
                        });
 
                     return 1;
@@ -61,7 +60,7 @@ namespace BusinessLogic.ForegroundServices.Services
 
         public Task<int> UpdateCount(TItem item)
         {
-            throw new NotImplementedException();
+            return _itemRepository.UpdateCount(item);
         }
     }
 }

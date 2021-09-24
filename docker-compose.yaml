@@ -26,23 +26,22 @@ services:
     # volumes:
     #   - /var/run/docker.sock:/var/run/docker.sock
 
-  # items_read:
-  #   container_name: api_items_read
-  #   build:
-  #     context: .
-  #     dockerfile: ItemRead/Dockerfile
-  #   ports:
-  #     - "7001:7001"
-  #   depends_on:
-  #     - kafka
+  items_read:
+    container_name: api_items_read
+    build:
+      context: .
+      dockerfile: ItemRead/Dockerfile
+    ports:
+      - "7001:7001"
+    depends_on:
+      - kafka
       
-  # items_write:
-  #   container_name: api_items_write
-  #   build:
-  #     context: .
-  #     dockerfile: ItemWrite/Dockerfile
-  #   ports:
-  #     - "6001:6001"
-  #   depends_on:
-  #     - kafka
-
+  items_write:
+    container_name: api_items_write
+    build:
+      context: .
+      dockerfile: ItemWrite/Dockerfile
+    ports:
+      - "6001:6001"
+    depends_on:
+      - kafka
