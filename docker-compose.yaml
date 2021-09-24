@@ -19,29 +19,30 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
-      KAFKA_CREATE_TOPICS: "items:1:1"
+      KAFKA_CREATE_TOPICS: "items:2:1"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     depends_on:
       - zookeeper
     # volumes:
     #   - /var/run/docker.sock:/var/run/docker.sock
 
-  items_read:
-    container_name: api_items_read
-    build:
-      context: .
-      dockerfile: ItemRead/Dockerfile
-    ports:
-      - "7001:7001"
-    depends_on:
-      - kafka
+  # items_read:
+  #   container_name: api_items_read
+  #   build:
+  #     context: .
+  #     dockerfile: ItemRead/Dockerfile
+  #   ports:
+  #     - "7001:7001"
+  #   depends_on:
+  #     - kafka
       
-  items_write:
-    container_name: api_items_write
-    build:
-      context: .
-      dockerfile: ItemWrite/Dockerfile
-    ports:
-      - "6001:6001"
-    depends_on:
-      - kafka
+  # items_write:
+  #   container_name: api_items_write
+  #   build:
+  #     context: .
+  #     dockerfile: ItemWrite/Dockerfile
+  #   ports:
+  #     - "6001:6001"
+  #   depends_on:
+  #     - kafka
+

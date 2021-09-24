@@ -6,7 +6,7 @@ WORKDIR /project
 
 COPY ItemWrite/BusinessLogic BusinessLogic
 COPY ItemWrite/ItemWrite ItemWrite
-COPY ItemWrite/Kafka Kafka
+COPY ItemWrite/DataAccess/ DataAccess
 
 WORKDIR /project/ItemWrite
 RUN dotnet restore ItemWrite.csproj && \

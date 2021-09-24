@@ -3,8 +3,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Confluent.Kafka;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 using BusinessLogic.ForegroundServices.Interfaces;
 
 namespace BusinessLogic.BackgroundServices
@@ -32,12 +32,14 @@ namespace BusinessLogic.BackgroundServices
                 GroupId = _configuration["ItemsConsumer:GroupId"],
                 BootstrapServers = _configuration["KafkaServer:BootstrapServers"],
                 AutoOffsetReset = AutoOffsetReset.Earliest,
+
             };
 
             using (var builder = new ConsumerBuilder<Ignore,
                 string>(conf).Build())
             {
-                builder.Assign(new TopicPartition(_configuration["ItemsConsumer:Topic"], new Partition(1)));
+                
+                builder.Assign(new TopicPartition(_configuration["ItemsConsumer:Topic"], new Partition(0)));
                 var cancelToken = new CancellationTokenSource();
                 try
                 {
@@ -45,7 +47,6 @@ namespace BusinessLogic.BackgroundServices
                     {
                         var consumer = builder.Consume(cancelToken.Token);
                         //await _itemService.Add(consumer.Message.Value);
-                        //await _itemService.Get(consumer.Message.Value);
                         _logger.LogInformation("Message: {0} partition {1} received from {2}",
                             consumer.Message.Value, consumer.Partition.Value, consumer.TopicPartitionOffset);
                     }
